@@ -1,0 +1,43 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Raw dataset and downloaded files
+data/raw/
+*.zip
+*.rar
+*.7z
+
+# Processed dataset images and labels
+# Keep data/processed/data.yaml, but avoid uploading dataset files
+data/processed/images/
+data/processed/labels/
+
+# YOLO training runs
+runs/
+
+# Pretrained YOLO base models
+yolov*.pt
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Jupyter files
+.ipynb_checkpoints/
+
+# Cache and temporary files
+.cache/
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
