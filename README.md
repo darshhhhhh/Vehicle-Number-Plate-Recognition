@@ -1,8 +1,8 @@
 # Vehicle Number Plate Recognition using YOLOv8 and EasyOCR
 
-An end-to-end computer vision project for detecting vehicle number plates from images and recognizing the plate text using OCR.
+An end-to-end computer vision project for detecting vehicle number plates from images/videos and recognizing the extracted plate text using OCR.
 
-The project uses **YOLOv8** for number plate detection and **EasyOCR** for reading the cropped plate text. It supports both single-image prediction and batch prediction on multiple images, with outputs saved as detected images, cropped plate images, and CSV results.
+This project uses **YOLOv8** for number plate detection and **EasyOCR** for reading the cropped plate text. It includes model training, single-image prediction, batch prediction, CSV result export, and an interactive **Streamlit dashboard** for visual testing.
 
 ---
 
@@ -17,22 +17,53 @@ This project follows a complete ML workflow:
 3. Number plate detection
 4. Plate cropping
 5. OCR-based text recognition
-6. Batch prediction
-7. CSV result generation
+6. OCR post-processing
+7. Single-image prediction
+8. Batch prediction
+9. Streamlit dashboard visualization
+10. CSV result generation
 
 ---
 
 ## Features
 
 * Detects vehicle number plates using a custom-trained YOLOv8 model
-* Crops detected number plates automatically
+* Crops detected number plate regions automatically
 * Reads plate text using EasyOCR
-* Applies OCR text cleaning for common character mistakes
+* Applies OCR post-processing to fix common character mistakes
 * Supports single-image prediction
 * Supports batch prediction on a folder of images
-* Saves detected images with bounding boxes
-* Saves cropped plate images
+* Supports image and video upload through Streamlit
+* Displays annotated image with bounding box
+* Displays extracted plate text and confidence scores
+* Displays cropped number plate image
 * Exports prediction results to CSV
+* Allows downloading annotated output image from the dashboard
+
+---
+
+## Streamlit Dashboard
+
+The project includes an interactive Streamlit dashboard for testing and visualization.
+
+The dashboard allows users to:
+
+* Upload an image or video
+* Detect vehicle number plates
+* Display the annotated image with bounding boxes
+* Extract and display the recognized plate text
+* Show cropped number plate regions
+* Download the annotated output image
+
+### Dashboard Preview
+
+<p align="center">
+  <img src="assets/screenshots/streamlit-dashboard-main.png" alt="Streamlit dashboard showing uploaded and annotated image" width="900">
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/streamlit-dashboard-results.png" alt="Streamlit dashboard showing extracted plate text and cropped plate" width="900">
+</p>
 
 ---
 
@@ -42,9 +73,11 @@ This project follows a complete ML workflow:
 * YOLOv8 / Ultralytics
 * OpenCV
 * EasyOCR
+* Streamlit
 * NumPy
 * Pandas
 * Matplotlib
+* Pillow
 
 ---
 
@@ -61,7 +94,7 @@ Final validation performance:
 | mAP50     | 0.894 |
 | mAP50-95  | 0.386 |
 
-The model performs well for number plate detection. OCR accuracy depends on image quality, plate clarity, lighting conditions, and plate angle.
+The model performs well for number plate detection. OCR accuracy depends on image quality, plate clarity, lighting conditions, viewing angle, and plate resolution.
 
 ---
 
@@ -69,6 +102,11 @@ The model performs well for number plate detection. OCR accuracy depends on imag
 
 ```text
 Vehicle-Number-Plate-Recognition/
+│
+├── assets/
+│   └── screenshots/
+│       ├── streamlit-dashboard-main.png
+│       └── streamlit-dashboard-results.png
 │
 ├── data/
 │   └── processed/
@@ -84,6 +122,7 @@ Vehicle-Number-Plate-Recognition/
 │   └── batch_results.csv
 │
 ├── src/
+│   ├── app.py
 │   ├── prepare_dataset.py
 │   ├── train.py
 │   ├── predict_image.py
@@ -199,6 +238,31 @@ For PowerShell:
 ```powershell
 Copy-Item .\runs\detect\plate_yolov8n_50\weights\best.pt .\models\best.pt
 ```
+
+---
+
+## Run Streamlit Dashboard
+
+To launch the interactive dashboard:
+
+```bash
+streamlit run src/app.py
+```
+
+If Streamlit is not recognized, run:
+
+```bash
+python -m streamlit run src/app.py
+```
+
+The dashboard supports:
+
+* Image upload
+* Video upload
+* Number plate detection
+* OCR text extraction
+* Cropped plate visualization
+* Annotated image download
 
 ---
 
@@ -347,7 +411,7 @@ KAO1MN4259 → KA01MN4259
 
 ## Example Result
 
-Input image:
+Input:
 
 ```text
 Vehicle image containing a visible number plate
@@ -373,13 +437,13 @@ outputs/batch_results.csv
 
 ## Future Improvements
 
-* Add Streamlit web app for browser-based image upload
-* Improve OCR using a character-level recognition model
-* Add support for video input
+* Improve OCR accuracy using a character-level recognition model
+* Add better video output preview support
 * Add real-time webcam detection
 * Train on a larger and more diverse dataset
-* Add license plate format validation for more Indian state codes
-* Deploy the project as a web demo
+* Add Indian state-code validation
+* Add deployment using Streamlit Cloud or Hugging Face Spaces
+* Add Docker support for easier setup
 
 ---
 
@@ -395,6 +459,7 @@ This project demonstrates:
 * Model inference
 * Batch processing
 * CSV report generation
+* Streamlit dashboard development
 * Clean Python project structure
 
 ---
@@ -402,5 +467,3 @@ This project demonstrates:
 ## Author
 
 **Darshil Vaja**
-
-Machine Learning and Computer Vision Project
